@@ -1,5 +1,7 @@
 # rsvp-backlog
 
+![Build status](https://travis-ci.org/adamshaylor/rsvp-backlog.svg?branch=master)
+
 ```javascript
 var backlog = RSVP.createBacklog();
 
