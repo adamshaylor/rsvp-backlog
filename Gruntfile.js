@@ -54,7 +54,8 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('default', ['mochaTest', 'uglify']);
 	grunt.registerTask('dev', ['watch']);
-
+	grunt.registerTask('test', ['mochaTest']);
+	grunt.registerTask('build', ['uglify']);
 
 	grunt.task.run('notify_hooks');
 
