@@ -26,6 +26,6 @@
     "tests"
   ],
   "dependencies": {
-    "rsvp": "~3.0.18"
+    "rsvp": "3.x"
   }
 }
