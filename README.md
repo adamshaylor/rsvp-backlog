@@ -19,7 +19,7 @@ backlog.whenClear().then(doSomethingElse);
 // Resolving or removing the last promise in the backlog resolves the backlog
 // as a whole
 
-backlog.remove(backlog.toArray()[0]);
+backlog.remove(somePromise);
 ```
 
 ## Bower installation
