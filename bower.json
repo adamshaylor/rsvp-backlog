@@ -1,0 +1,31 @@
+{
+  "name": "rsvp-backlog",
+  "version": "0.0.0",
+  "homepage": "https://github.com/adamshaylor/rsvp-backlog",
+  "authors": [
+    "Adam Shaylor <business@adamshaylor.com>"
+  ],
+  "description": "Like RSVP.all() but a little smarter",
+  "main": "rsvp-backlog.js",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "RSVP",
+    "promise",
+    "queue",
+    "backlog"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "rsvp": "~3.0.18"
+  }
+}
