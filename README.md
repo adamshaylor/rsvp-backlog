@@ -44,7 +44,7 @@ From a terminal:
 npm install rsvp-backlog
 ```
 
-In you script:
+In your script:
 
 ```javascript
 var createBacklog = require('rsvp-backlog'),
