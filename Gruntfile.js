@@ -37,6 +37,10 @@ module.exports = function (grunt) {
 			files: ['rsvp-backlog.js'],
 			tasks: ['default']
 		},
+		tests: {
+			files: ['test/*.js'],
+			tasks: ['mochaTest']
+		},
 		options: {
 			atBegin: true
 		}

@@ -16,6 +16,17 @@ backlog.toArray()[0].then(doSomething);
 
 backlog.whenClear().then(doSomethingElse);
 
+// Callback functions can be passed to handle additions, removals and 
+// resolutions
+
+backlog.whenChanged(function () {
+
+    // The callback is bound to the backlog
+
+    renderBacklogProgress(this.toArray().length);
+
+});
+
 // Resolving or removing the last promise in the backlog resolves the backlog
 // as a whole
 

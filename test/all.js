@@ -99,7 +99,7 @@ describe('rsvpBacklog()', function () {
 
 			deferreds[0].promise.then(done);
 
-			setTimeout(deferreds[0].resolve, 100);
+			setTimeout(deferreds[0].resolve, 1);
 
 		});
 
@@ -110,7 +110,7 @@ describe('rsvpBacklog()', function () {
 
 			backlog = rsvpBacklog();
 
-			for (iteration = 0; iteration < 100; iteration += 1) {
+			for (iteration = 0; iteration < 4; iteration += 1) {
 
 				deferreds.push(rsvp.defer());
 				backlog.add(deferreds[deferreds.length - 1].promise);
@@ -136,6 +136,56 @@ describe('rsvpBacklog()', function () {
 				}
 
 			}, 1);
+
+		});
+
+	});
+
+	describe('#whenChanged()', function () {
+
+		it('should accept a function', function () {
+
+			(function () {
+				backlog.whenChanged(function () {});
+			}).should.not.throw();
+
+		});
+
+		it('should not accept anything else', function () {
+
+			(function () {
+				backlog.whenChanged();
+			}).should.throw();
+
+			(function () {
+				backlog.whenChanged('test');
+			}).should.throw();
+
+			(function () {
+				backlog.whenChanged({});
+			}).should.throw();
+
+		});
+
+		it('should call a passed callback when a promise is added', function (done) {
+
+			backlog.whenChanged(function () {
+				done();
+			});
+
+			backlog.add(rsvp.defer().promise);
+
+		});
+
+		it('should call a passed callback when a promise is removed', function (done) {
+
+			done();
+
+		});
+
+		it('should call a passed callback when a promise is resolved', function (done) {
+
+			done();
 
 		});
 

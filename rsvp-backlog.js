@@ -4,6 +4,7 @@
 	function PromiseBacklog () {
 
 		var backlog = [],
+			changeCallbacks = [],
 			clearedDeferral = rsvp.defer();
 
 		clearedDeferral.resolve();
@@ -19,20 +20,23 @@
 			}
 
 			remove = this.remove.bind(this, promiseToAdd);
-
 			promiseToAdd.then(remove, remove);
 
 			if (!backlog.length) {
+
 				clearedDeferral = rsvp.defer();
+
 			}
 
 			backlog.push(promiseToAdd);
+
+			fireChangeCallbacks();
 
 			return this;
 
 		};
 
-		this.remove = function removeFromBackLog (promiseToRemove) {
+		this.remove = function removeFromBacklog (promiseToRemove) {
 
 			var indexToRemove = backlog.indexOf(promiseToRemove);
 
@@ -41,8 +45,12 @@
 				backlog.splice(indexToRemove, 1);
 
 				if (!backlog.length) {
+
 					clearedDeferral.resolve();
+
 				}
+
+				fireChangeCallbacks();
 
 			}
 
@@ -56,11 +64,35 @@
 
 		};
 
+		this.whenChanged = function addChangeCallback (callback) {
+
+			if (typeof callback !== 'function') {
+
+				throw new TypeError('Expected callback to be a function, saw ' + typeof callback);
+
+			}
+
+			changeCallbacks.push(callback);
+
+		};
+
 		this.toArray = function backlogToArray () {
 
 			return backlog.slice(0);
 
 		};
+
+		function fireChangeCallbacks () {
+
+			var index;
+
+			for (index in changeCallbacks) {
+
+				changeCallbacks[index].call(this);
+
+			}
+
+		}
 
 	}
 
