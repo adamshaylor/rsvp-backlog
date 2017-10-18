@@ -3,13 +3,14 @@
 
 	function PromiseBacklog () {
 
-		var backlog = [],
+		var instance = this,
+			backlog = [],
 			changeCallbacks = [],
 			clearedDeferral = rsvp.defer();
 
 		clearedDeferral.resolve();
 
-		this.add = function addToBacklog (promiseToAdd) {
+		instance.add = function addToBacklog (promiseToAdd) {
 
 			var remove;
 
@@ -19,7 +20,7 @@
 
 			}
 
-			remove = this.remove.bind(this, promiseToAdd);
+			remove = instance.remove.bind(instance, promiseToAdd);
 			promiseToAdd.then(remove, remove);
 
 			if (!backlog.length) {
@@ -32,11 +33,11 @@
 
 			fireChangeCallbacks();
 
-			return this;
+			return instance;
 
 		};
 
-		this.remove = function removeFromBacklog (promiseToRemove) {
+		instance.remove = function removeFromBacklog (promiseToRemove) {
 
 			var indexToRemove = backlog.indexOf(promiseToRemove);
 
@@ -54,17 +55,17 @@
 
 			}
 
-			return this;
+			return instance;
 
 		};
 
-		this.whenClear = function getClearedPromise () {
+		instance.whenClear = function getClearedPromise () {
 
 			return clearedDeferral.promise;
 
 		};
 
-		this.whenChanged = function addChangeCallback (callback) {
+		instance.whenChanged = function addChangeCallback (callback) {
 
 			if (typeof callback !== 'function') {
 
@@ -76,7 +77,7 @@
 
 		};
 
-		this.toArray = function backlogToArray () {
+		instance.toArray = function backlogToArray () {
 
 			return backlog.slice(0);
 
@@ -84,13 +85,9 @@
 
 		function fireChangeCallbacks () {
 
-			var index;
-
-			for (index in changeCallbacks) {
-
-				changeCallbacks[index].call(this);
-
-			}
+			changeCallbacks.forEach(function(callback) {
+				callback(instance);
+			});
 
 		}
 
@@ -123,7 +120,7 @@
 		module.exports = createBacklog;
 
 	}
-	
+
 
 
 

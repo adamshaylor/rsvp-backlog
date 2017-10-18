@@ -87,7 +87,7 @@ describe('rsvpBacklog()', function () {
 
 			var clearPromise = backlog.whenClear();
 
-			clearPromise.should.be.Promise;
+			clearPromise.should.be.instanceOf(rsvp.Promise);
 
 			clearPromise.then(done);
 
