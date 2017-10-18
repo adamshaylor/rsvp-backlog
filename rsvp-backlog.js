@@ -84,9 +84,7 @@
 
 		function fireChangeCallbacks () {
 
-			var index;
-
-			for (index in changeCallbacks) {
+			for (var index = 0, len = changeCallbacks.length; index < len; index++) {
 
 				changeCallbacks[index].call(this);
 
